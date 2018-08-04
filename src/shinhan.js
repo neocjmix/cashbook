@@ -10,7 +10,7 @@ const shinhanDataAdaptor = shinhanRecords => ({
 });
 
 function getShinhanData() {
-    return data["R_RIBD1110_1"];
+    return data["R_RIBD1110_1"].map(shinhanDataAdaptor);
 }
 
-export {shinhanDataAdaptor, getShinhanData}
+export {getShinhanData}
