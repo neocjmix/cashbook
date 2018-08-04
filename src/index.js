@@ -1,17 +1,22 @@
-import {table, thead, tr} from './recordTemplates'
 import {getShinhanData, shinhanDataAdaptor} from "./shinhan";
+import RecordTable from "./components/RecordTable";
 
-const render = store =>
-    document.getElementById("table-wrapper").innerHTML = table({
-        thead: thead(),
-        trs: store.records.map(tr)
-    });
+class Controller{
+    constructor(container, template, initStore = {}){
+        this.container = container;
+        this.template = template;
+        this.store = initStore;
+    }
 
-let store = {};
+    render(){
+        this.container.innerHTML = this.template(this.store);
+    }
+}
 
-store = {
-    ...store, ...{
+const controller = new Controller(document.getElementById("table-wrapper"), RecordTable);
+controller.store = {
+    ...controller.store, ...{
         records: getShinhanData().map(shinhanDataAdaptor)
     }
 };
-render(store);
+controller.render();

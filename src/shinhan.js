@@ -1,4 +1,4 @@
-import data from './shinhan.json'
+import data from './data/shinhan.json'
 
 const shinhanDataAdaptor = shinhanRecords => ({
     content: shinhanRecords["내용"],
