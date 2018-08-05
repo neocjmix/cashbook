@@ -13,5 +13,5 @@ bind(document.getElementById("table-wrapper"), RecordTable, store);
 Rx.Observable
     .fromEvent(document.getElementById("fetch-shinhan"), 'click')
     .flatMap(() => Rx.Observable.of(getShinhanData()))
-    .map(records => ({...controller.state, ...{records}}))
+    .map(records => ({records}))
     .forEach(store.update.bind(store));
