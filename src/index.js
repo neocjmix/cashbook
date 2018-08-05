@@ -1,4 +1,4 @@
-import {getShinhanData} from "./shinhan";
+import {getShinhanBankData} from "./shinhanBank";
 import RecordTable from "./components/RecordTable";
 import {Store, bind} from "./Framework";
 import * as Rx from "rxjs";
@@ -12,6 +12,6 @@ bind(document.getElementById("table-wrapper"), RecordTable, store);
 
 Rx.Observable
     .fromEvent(document.getElementById("fetch-shinhan"), 'click')
-    .flatMap(() => Rx.Observable.of(getShinhanData()))
+    .flatMap(() => Rx.Observable.of(getShinhanBankData()))
     .map(records => ({records}))
     .forEach(store.update.bind(store));
