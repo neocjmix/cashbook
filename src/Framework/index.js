@@ -9,18 +9,21 @@ class Store {
 
     update(newState) {
         this.state = this.state.mergeDeep(newState);
+        this.refresh();
+    }
+
+    subscribe(callback){
+        this.stream.forEach(callback);
+        this.refresh();
+    }
+
+    refresh() {
         this.stream.next(this.state.toJS());
     }
 }
 
-class Controller {
-    constructor(container, template, store = new Store()) {
-        this.container = container;
-        this.template = template;
-        this.store = store;
-        this.store.stream.forEach(state =>
-            this.container.innerHTML = this.template(state));
-    }
+function bind (container, template, store = new Store()){
+    store.subscribe(state => container.innerHTML = template(state));
 }
 
-export {Controller, Store}
+export {bind, Store}
