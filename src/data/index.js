@@ -13,7 +13,8 @@ function getShinhanBankData() {
             briefs: record["적요"],
             amount: toNumber(record["입금"]) - toNumber(record["출금"]),
             dateTime: new Date(record["거래일자"] + "T" + record["시간"].replace(/(..)(..)(..)/g, "$1:$2:$3")),
-            balance: record["잔액"]
+            balance: record["잔액"],
+            isCreditCard : false
         })));
     });
 }

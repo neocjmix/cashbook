@@ -1,0 +1,11 @@
+body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,
+textarea,button,select{margin:0;padding:0}
+body,input,textarea,select,button,table{font-size:14px;line-height:1.25}
+body.s,.s input,.s textarea,.s select,.s button,.s table{font-family:helvetica}
+body{position:relative;background-color:#fff;color:#000}
+body.s{-ms-text-size-adjust:none;-webkit-text-size-adjust:none}
+img,fieldset{border:0}
+ul,ol{list-style:none}
+table{border-collapse:collapse}
+em,address{font-style:normal}
+a{color:inherit;text-decoration:none}

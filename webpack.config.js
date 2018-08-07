@@ -20,16 +20,21 @@ module.exports = {
         })
     ],
     module: {
-        rules: [
-            {
-                test: /\.csv$/,
-                loader: 'csv-loader',
-                options: {
-                    dynamicTyping: true,
-                    header: true,
-                    skipEmptyLines: true
-                }
+        rules: [{
+            test: /\.csv$/,
+            loader: 'csv-loader',
+            options: {
+                dynamicTyping: true,
+                header: true,
+                skipEmptyLines: true
             }
-        ]
+        }, {
+            test: /\.scss$/,
+            use: [
+                {loader: "style-loader"},
+                {loader: "css-loader", options: {sourceMap: true}},
+                {loader: "sass-loader", options: {sourceMap: true}}
+            ]
+        }]
     }
 };
