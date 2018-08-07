@@ -1,8 +1,6 @@
-import {getShinhanBankData} from "./shinhanBank";
+import {getKbCardData, getShinhanBankData, getShinhanCardData} from "./data";
 import RecordTable from "./components/RecordTable";
-import {Store, bind} from "./Framework";
-import * as Rx from "rxjs";
-
+import {bind, Store} from "./Framework";
 
 const store = new Store({
     records: []
@@ -10,8 +8,15 @@ const store = new Store({
 
 bind(document.getElementById("table-wrapper"), RecordTable, store);
 
-Rx.Observable
-    .fromEvent(document.getElementById("fetch-shinhan"), 'click')
-    .flatMap(() => Rx.Observable.of(getShinhanBankData()))
-    .map(records => ({records}))
-    .forEach(store.update.bind(store));
+(async () => {
+    const shinhanBankData = await getShinhanBankData();
+    const shinhanCardData = await getShinhanCardData();
+    const kbCardData = await getKbCardData();
+    const records = []
+        .concat(shinhanBankData)
+        .concat(shinhanCardData)
+        .concat(kbCardData)
+        .sort((record1, record2) => record2.dateTime.valueOf() - record1.dateTime.valueOf());
+
+    store.update({records})
+})();
