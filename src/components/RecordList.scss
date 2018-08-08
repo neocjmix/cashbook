@@ -42,31 +42,6 @@
         }
       }
 
-      &.collapsed {
-        .record-list{
-          margin-left: 0;
-          .record-item {
-            margin-right: 0;
-            .content{
-              width: 0;
-            }
-          }
-        }
-
-        //todo : temporary style for test
-        &:hover{
-          .record-list{
-            margin-left: 2.57em;
-            .record-item {
-              margin-right: 2.57em;
-              .content{
-                width: auto;
-              }
-            }
-          }
-        }
-      }
-
       .record-list {
         position: relative;
         display: flex;
@@ -76,6 +51,14 @@
         transition: margin-left .6s;
 
         .record-item {
+          transition: margin-right .6s;
+          dl{
+            transition: border-bottom-color .6s;
+            dd.content{
+              transition: opacity .6s;
+            }
+          }
+
           &.bank-account {
             &.withdrawal .amount {
               background: #ffa28a;
@@ -91,6 +74,37 @@
           }
         }
       }
+
+      &.collapsed {
+        .record-list{
+          margin-left: 0;
+          .record-item {
+            margin-right: 0;
+            dl{
+              border-bottom-color: transparent;
+              dd.content{
+                opacity: 0;
+              }
+            }
+          }
+        }
+
+        //todo : temporary style for test
+        &:hover{
+          .record-list{
+            margin-left: 2.57em;
+            .record-item {
+              margin-right: 2.57em;
+              dl{
+                border-bottom-color: black;
+                dd.content{
+                  opacity: 1;
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -102,7 +116,6 @@
   height: 0;
   margin-right: 2.57em;
   transform: rotate(38deg);
-  transition: margin-right .6s;
 
   dl {
     line-height: 1.6em;
@@ -133,7 +146,6 @@
         background: white;
         padding-left: .2em;
         overflow: hidden;
-        transition: width .6s;
 
         &:before {
           content: '';
