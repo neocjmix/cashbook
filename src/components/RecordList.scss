@@ -18,29 +18,51 @@
     .day-summary {
       position: relative;
 
-      .info {
-        .date-wrap {
-          position: absolute;
-          height: 3.5em;
-          bottom: 100%;
-          margin-bottom: -1.5em;
-          width: 100%;
-          color: white;
-          border-left: solid 1px white;
-          background: rgba(255, 0, 0, 0.2);
+      .date-wrap {
+        position: absolute;
+        height: 3.5em;
+        bottom: 100%;
+        margin-bottom: -1.5em;
+        width: 100%;
+        color: white;
+        border-left: solid 1px white;
+        background: rgba(255, 0, 0, 0.2);
 
-          .date {
-            transform: rotate(90deg);
-            display: block;
-            width: 1em;
-          }
+        .date {
+          transform: rotate(90deg);
+          display: block;
+          width: 1em;
+        }
+      }
+
+      .day-summary-content{
+        z-index: 1;
+        .amount {
+          background: #ffb500;
         }
       }
 
       &.collapsed {
         .record-list{
-          .record {
+          margin-left: 0;
+          .record-item {
             margin-right: 0;
+            .content{
+              width: 0;
+            }
+          }
+        }
+
+        //todo : temporary style for test
+        &:hover{
+          .record-list{
+            margin-left: 2.57em;
+            .record-item {
+              margin-right: 2.57em;
+              .content{
+                width: auto;
+              }
+            }
           }
         }
       }
@@ -50,14 +72,10 @@
         display: flex;
         flex-wrap: nowrap;
         min-width: 2.57em;
+        margin-left: 2.57em;
+        transition: margin-left .6s;
 
-        .record {
-          width: 0;
-          height: 0;
-          margin-right: 2.57em;
-          transform: rotate(38deg);
-          transition: margin-right .6s;
-
+        .record-item {
           &.bank-account {
             &.withdrawal .amount {
               background: #ffa28a;
@@ -71,49 +89,61 @@
           &.credit-card .amount {
             background: #65ffee;
           }
+        }
+      }
+    }
+  }
+}
 
-          dl {
-            line-height: 1.6em;
-            height: 1.6em;
-            display: flex;
-            width: fit-content;
-            border-bottom: solid 1px black;
-            box-sizing: border-box;
 
-            dt {
-              display: none;
-            }
 
-            dd {
-              vertical-align: middle;
+.record {
+  width: 0;
+  height: 0;
+  margin-right: 2.57em;
+  transform: rotate(38deg);
+  transition: margin-right .6s;
 
-              &.amount {
-                width: 9em;
-                padding-left: 1em;
-                padding-right: .2em;
-                position: relative;
-                font-weight: bold;
-              }
+  dl {
+    line-height: 1.6em;
+    height: 1.6em;
+    display: flex;
+    width: fit-content;
+    border-bottom: solid 1px black;
+    box-sizing: border-box;
 
-              &.content {
-                position: relative;
-                white-space: nowrap;
-                background: white;
-                padding-left: .2em;
+    dt {
+      display: none;
+    }
 
-                &:before {
-                  content: '';
-                  position: absolute;
-                  width: 0;
-                  height: 0;
-                  bottom: 0;
-                  left: -2em;
-                  border-bottom: solid 1.6em white;
-                  border-left: solid 2.05em transparent;
-                }
-              }
-            }
-          }
+    dd {
+      vertical-align: middle;
+
+      &.amount {
+        width: 9em;
+        padding-left: 1em;
+        padding-right: .2em;
+        position: relative;
+        font-weight: bold;
+      }
+
+      &.content {
+        position: relative;
+        white-space: nowrap;
+        background: white;
+        padding-left: .2em;
+        overflow: hidden;
+        transition: width .6s;
+
+        &:before {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 0;
+          bottom: 0;
+          left: -2em;
+          border-bottom: solid 1.6em white;
+          border-left: solid 2.05em transparent;
         }
       }
     }
