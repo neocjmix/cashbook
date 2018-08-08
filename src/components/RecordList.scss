@@ -1,67 +1,118 @@
-.record-list {
-  white-space: nowrap;
-  height: 16em;
+#app {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
 
-  li {
-    display: inline-block;
-    width: 2.5em;
-    transform: rotate(38deg) translate(-0.3em, -0.8em);
+  #graph-wrapper{
+    height: 400px;
+    background: #383838
+  }
 
-    &.bank-account {
-      &.withdrawal .amount {
-        background: #ffa28a;
-      }
+  .day-summary-list {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 16em;
+    width: fit-content;
+    margin-top: -1.3em;
 
-      &.deposit .amount {
-        background: #baff57;
-      }
-    }
+    .day-summary {
+      position: relative;
 
-    &.credit-card .amount {
-        background: #65ffee;
-    }
+      .info {
+        .date-wrap {
+          position: absolute;
+          height: 3.5em;
+          bottom: 100%;
+          margin-bottom: -1.5em;
+          width: 100%;
+          color: white;
+          border-left: solid 1px white;
+          background: rgba(255, 0, 0, 0.2);
 
-    dl{
-      line-height: 1em;
-      display: flex;
-      float:left;
-      border-bottom: solid 1px black;
-
-      &:after{
-        content: '';
-        display: block;
-        clear: both;
-      }
-
-      dt {
-        display: none;
-      }
-
-      dd {
-        vertical-align: bottom;
-        padding: .3em;
-
-        &.amount {
-          width: 9em;
-          padding-left: 1em;
-          padding-right: .2em;
-          position: relative;
-          font-weight: bold;
+          .date {
+            transform: rotate(90deg);
+            display: block;
+            width: 1em;
+          }
         }
+      }
 
-        &.content {
-          position: relative;
+      &.collapsed {
+        .record-list{
+          .record {
+            margin-right: 0;
+          }
+        }
+      }
 
-          &:before{
-            content: '';
-            width: 0;
-            height: 0;
-            border-bottom: solid 1.6em white;
-            border-left: solid 2.05em transparent;
-            position: absolute;
-            top: 0;
-            left: -2.05em;
-            margin-left: 1.5px;
+      .record-list {
+        position: relative;
+        display: flex;
+        flex-wrap: nowrap;
+        min-width: 2.57em;
+
+        .record {
+          width: 0;
+          height: 0;
+          margin-right: 2.57em;
+          transform: rotate(38deg);
+          transition: margin-right .6s;
+
+          &.bank-account {
+            &.withdrawal .amount {
+              background: #ffa28a;
+            }
+
+            &.deposit .amount {
+              background: #baff57;
+            }
+          }
+
+          &.credit-card .amount {
+            background: #65ffee;
+          }
+
+          dl {
+            line-height: 1.6em;
+            height: 1.6em;
+            display: flex;
+            width: fit-content;
+            border-bottom: solid 1px black;
+            box-sizing: border-box;
+
+            dt {
+              display: none;
+            }
+
+            dd {
+              vertical-align: middle;
+
+              &.amount {
+                width: 9em;
+                padding-left: 1em;
+                padding-right: .2em;
+                position: relative;
+                font-weight: bold;
+              }
+
+              &.content {
+                position: relative;
+                white-space: nowrap;
+                background: white;
+                padding-left: .2em;
+
+                &:before {
+                  content: '';
+                  position: absolute;
+                  width: 0;
+                  height: 0;
+                  bottom: 0;
+                  left: -2em;
+                  border-bottom: solid 1.6em white;
+                  border-left: solid 2.05em transparent;
+                }
+              }
+            }
           }
         }
       }
