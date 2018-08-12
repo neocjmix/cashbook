@@ -1,9 +1,33 @@
+h1#app-title {
+  position: fixed;
+  font-size: 2.3em;
+  color: #ffef00;
+  font-family: serif;
+  text-shadow:
+          -0.04em -0.04em #ff5e00,
+          0.08em 0.08em #e21f1f,
+          0.13em 0.11em #ffd6a3,
+          0em 0em 0.3em #fff700,
+          0em 0em 0.3em #ffffff,
+          0.17em 0.15em 0.3em #000000,
+          0.17em 0.15em 0.3em #000000;
+  letter-spacing: -.11em;
+  transform: rotateX(13deg) rotateY(-33deg) rotateZ(-3deg);
+  top: 0.1em;
+  left: -0.1em;
+  font-weight: bold;
+
+  .symbol{
+    font-size: 1.4em;
+  }
+}
+
 #app {
   display: flex;
   flex-direction: column;
   width: fit-content;
 
-  #graph-wrapper{
+  #graph-wrapper {
     height: 400px;
     background: #383838
   }
@@ -26,7 +50,8 @@
         width: 100%;
         color: white;
         border-left: solid 1px white;
-        background: rgba(255, 0, 0, 0.2);
+        background: rgba(255,
+                0, 0, 0.2);
 
         .date {
           transform: rotate(90deg);
@@ -35,7 +60,7 @@
         }
       }
 
-      .day-summary-content{
+      .day-summary-content {
         z-index: 1;
         .amount {
           background: #ffb500;
@@ -48,14 +73,14 @@
         flex-wrap: nowrap;
         min-width: 2.57em;
         margin-left: 2.57em;
-        transition: margin-left .6s;
+        transition: margin-left .3s;
 
         .record-item {
-          transition: margin-right .6s;
-          dl{
-            transition: border-bottom-color .6s;
-            dd.content{
-              transition: opacity .6s;
+          transition: margin-right .3s;
+          dl {
+            transition: border-bottom-color .3s;
+            dd.content {
+              transition: opacity .3s;
             }
           }
 
@@ -76,13 +101,13 @@
       }
 
       &.collapsed {
-        .record-list{
+        .record-list {
           margin-left: 0;
           .record-item {
             margin-right: 0;
-            dl{
+            dl {
               border-bottom-color: transparent;
-              dd.content{
+              dd.content {
                 opacity: 0;
               }
             }
@@ -90,14 +115,14 @@
         }
 
         //todo : temporary style for test
-        &:hover{
-          .record-list{
+        &:hover {
+          .record-list {
             margin-left: 2.57em;
             .record-item {
               margin-right: 2.57em;
-              dl{
+              dl {
                 border-bottom-color: black;
-                dd.content{
+                dd.content {
                   opacity: 1;
                 }
               }
@@ -108,8 +133,6 @@
     }
   }
 }
-
-
 
 .record {
   width: 0;
