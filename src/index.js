@@ -4,6 +4,7 @@ import RecordList from "./components/RecordList.template";
 import {bind, Store} from "./Framework";
 import Moment from "moment";
 import {extendMoment} from 'moment-range';
+import {sum, toNumber} from './Functions';
 
 const moment = extendMoment(Moment);
 
@@ -28,13 +29,20 @@ function findByMomentRange(arr, mapper, range) {
 
     const store = new Store({
         daily: Array.from(moment.range(start, end).by('days'))
-            .map(day => ({
+            .map(day => ([day, findByMomentRange(
+                records,
+                record => record.dateTime,
+                moment.rangeFromInterval('day', -1, day)
+            )]))
+            .map(([day, records]) => ({
                 date: day,
-                records: findByMomentRange(
-                    records,
-                    record => record.dateTime,
-                    moment.rangeFromInterval('day', -1, day)
-                )
+                content: "합계",
+                records: records,
+                amount: records
+                    .map(record => record.amount)
+                    .map(toNumber)
+                    .reduce(sum, 0),
+
             }))
     });
 

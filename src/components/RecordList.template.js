@@ -1,6 +1,9 @@
 import './RecordList.scss'
 import currencyFormatter from 'currency-formatter'
 
+const getAmountClass = amount => amount === 0 ? "" : amount < 0 ? 'withdrawal' : 'deposit';
+const formatCurrency = amount => currencyFormatter.format(Math.abs(amount), {code: 'KRW'});
+
 export default data => `
     <div id="graph-wrapper"></div>
     <ul class="day-summary-list">
@@ -11,25 +14,25 @@ export default data => `
                 </div>
                 <ul class="record-list">
                     ${day.records.map(record => record.isCreditCard ? `
-                        <li class="record record-item credit-card">
+                        <li class="record record-item credit-card ${getAmountClass(record.amount)}">
                             <dl>
-                                <dt>금액</dt><dd class="amount">${currencyFormatter.format(Math.abs(record.amount), {code: 'KRW'})}</dd>
+                                <dt>금액</dt><dd class="amount">${formatCurrency(record.amount)}</dd>
                                 <dt>내용</dt><dd class="content">${record.content}</dd>
                             </dl>           
                         </li>
                     ` : `
-                        <li class="record record-item bank-account ${record.amount < 0 ? 'withdrawal' : 'deposit'}">
+                        <li class="record record-item bank-account ${getAmountClass(record.amount)}">
                             <dl>
-                                <dt>금액</dt><dd class="amount">${currencyFormatter.format(Math.abs(record.amount), {code: 'KRW'})}</dd>
+                                <dt>금액</dt><dd class="amount">${formatCurrency(record.amount)}</dd>
                                 <dt>내용</dt><dd class="content">${record.content}</dd>
                             </dl>           
                         </li>
                     `).join('\n')}
                 </ul>
-                <div class="record day-summary-content">
+                <div class="record day-summary-content ${getAmountClass(day.amount)}">
                     <dl>
-                        <dt>금액</dt><dd class="amount">${'...'}</dd>
-                        <dt>내용</dt><dd class="content">합계</dd>
+                        <dt>금액</dt><dd class="amount">${formatCurrency(day.amount)}</dd>
+                        <dt>내용</dt><dd class="content">${day.content}</dd>
                     </dl>           
                 </div>
             </li>        

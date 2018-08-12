@@ -29,7 +29,7 @@ h1#app-title {
 
   #graph-wrapper {
     height: 400px;
-    background: #383838
+    background: #262626;
   }
 
   .day-summary-list {
@@ -62,8 +62,23 @@ h1#app-title {
 
       .day-summary-content {
         z-index: 1;
-        .amount {
-          background: #ffb500;
+
+        .amount{
+          background: #2A3140;
+          color:white;
+          transition: padding-right .3s;
+        }
+
+        .content{
+          display: none;
+        }
+
+        &.withdrawal .amount{
+          background: #D93240;
+        }
+
+        &.deposit .amount{
+          background: #1FA698;
         }
       }
 
@@ -71,8 +86,8 @@ h1#app-title {
         position: relative;
         display: flex;
         flex-wrap: nowrap;
-        min-width: 2.57em;
-        margin-left: 2.57em;
+        min-width: 2.5em;
+        margin-left: 2.5em;
         transition: margin-left .3s;
 
         .record-item {
@@ -85,17 +100,38 @@ h1#app-title {
           }
 
           &.bank-account {
-            &.withdrawal .amount {
-              background: #ffa28a;
+            &.deposit{
+              .amount {
+                background: #3bf8b5;
+                color: #fff;
+              }
+
+              .content{
+                border-bottom: solid 1px #3bf8b5;
+              }
             }
 
-            &.deposit .amount {
-              background: #baff57;
+            &.withdrawal{
+              .amount {
+                background: #EE9710;
+                color: #fff;
+              }
+
+              .content{
+                border-bottom: solid 1px #EE9710;
+              }
             }
           }
 
-          &.credit-card .amount {
-            background: #65ffee;
+          &.credit-card{
+            .amount {
+              background: #D6680E;
+              color: #fff;
+            }
+
+            .content{
+              border-bottom: solid 1px #D6680E;
+            }
           }
         }
       }
@@ -103,10 +139,11 @@ h1#app-title {
       &.collapsed {
         .record-list {
           margin-left: 0;
+          opacity: 0;
+          transition: opacity .3s;
           .record-item {
             margin-right: 0;
             dl {
-              border-bottom-color: transparent;
               dd.content {
                 opacity: 0;
               }
@@ -116,12 +153,18 @@ h1#app-title {
 
         //todo : temporary style for test
         &:hover {
+          .day-summary-content{
+            .amount{
+              padding-right: 8em;
+            }
+          }
+
           .record-list {
-            margin-left: 2.57em;
+            margin-left: 2.5em;
+            opacity: 1;
             .record-item {
-              margin-right: 2.57em;
+              margin-right: 2.5em;
               dl {
-                border-bottom-color: black;
                 dd.content {
                   opacity: 1;
                 }
@@ -137,7 +180,7 @@ h1#app-title {
 .record {
   width: 0;
   height: 0;
-  margin-right: 2.57em;
+  margin-right: 2.5em;
   transform: rotate(38deg);
 
   dl {
@@ -145,7 +188,6 @@ h1#app-title {
     height: 1.6em;
     display: flex;
     width: fit-content;
-    border-bottom: solid 1px black;
     box-sizing: border-box;
 
     dt {
@@ -161,13 +203,14 @@ h1#app-title {
         padding-right: .2em;
         position: relative;
         font-weight: bold;
+        box-shadow: 0 0 12px -3px black;
       }
 
       &.content {
         position: relative;
         white-space: nowrap;
         background: white;
-        padding-left: .2em;
+        padding: 0 .5em;
         overflow: hidden;
 
         &:before {
