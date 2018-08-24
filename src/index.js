@@ -28,23 +28,31 @@ function findByMomentRange(arr, mapper, range) {
         .sort((record1, record2) => record1.dateTime.isBefore(record2.dateTime) ? -1 : 1);
 
     const store = new Store({
-        daily: Array.from(moment.range(start, end).by('days'))
-            .map(day => ([day, findByMomentRange(
-                records,
-                record => record.dateTime,
-                moment.rangeFromInterval('day', -1, day)
-            )]))
-            .map(([day, records]) => ({
-                date: day,
-                content: "합계",
-                records: records,
-                amount: records
-                    .map(record => record.amount)
-                    .map(toNumber)
-                    .reduce(sum, 0),
+        monthly : Array.from(moment.range(start, end).by('months'))
+            .map(month => [
+                month,
+                moment.range(moment(month).startOf('month'), moment(month).endOf('month')).by('days')
+            ])
+            .map(([month, monthDays])=> ({
+                date: month,
+                daily: Array.from(monthDays)
+                    .map(day => ([day, findByMomentRange(
+                        records,
+                        record => record.dateTime,
+                        moment.rangeFromInterval('day', -1, day)
+                    )]))
+                    .map(([day, records]) => ({
+                        date: day,
+                        content: "합계",
+                        records: records,
+                        amount: records
+                            .map(record => record.amount)
+                            .map(toNumber)
+                            .reduce(sum, 0),
 
+                    }))
             }))
     });
 
-    bind(document.getElementById("app"), RecordList, store);
+    bind(document.getElementById("records-wrapper"), RecordList, store);
 })();

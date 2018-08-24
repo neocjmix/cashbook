@@ -1,22 +1,12 @@
-h1#app-title {
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Limelight|Poiret+One');
+
+#app-title {
   position: fixed;
   font-size: 2.3em;
-  color: #ffef00;
-  font-family: serif;
-  text-shadow:
-          -0.04em -0.04em #ff5e00,
-          0.08em 0.08em #e21f1f,
-          0.13em 0.11em #ffd6a3,
-          0em 0em 0.3em #fff700,
-          0em 0em 0.3em #ffffff,
-          0.17em 0.15em 0.3em #000000,
-          0.17em 0.15em 0.3em #000000;
-  letter-spacing: -.11em;
-  transform: rotateX(13deg) rotateY(-33deg) rotateZ(-3deg);
-  top: 0.1em;
-  left: -0.1em;
-  font-weight: bold;
-
+  color: #f6faff;
+  font-family: 'Poiret One', cursive;
+  font-weight: normal;
+  margin: .2em 0 0 .4em;
   .symbol{
     font-size: 1.4em;
   }
@@ -26,147 +16,179 @@ h1#app-title {
   display: flex;
   flex-direction: column;
   width: fit-content;
+  overflow: hidden;
 
   #graph-wrapper {
-    height: 400px;
+    height: 700px;
     background: #262626;
   }
 
-  .day-summary-list {
+  #records-wrapper {
     display: flex;
-    flex-wrap: nowrap;
-    height: 16em;
+    flex-direction: column;
     width: fit-content;
-    margin-top: -1.3em;
 
-    .day-summary {
-      position: relative;
+    .monthly-summary-list {
+      display: flex;
+      flex-wrap: nowrap;
+      height: 16em;
+      width: fit-content;
 
-      .date-wrap {
-        position: absolute;
-        height: 3.5em;
-        bottom: 100%;
-        margin-bottom: -1.5em;
-        width: 100%;
-        color: white;
-        border-left: solid 1px white;
-        background: rgba(255,
-                0, 0, 0.2);
-
-        .date {
-          transform: rotate(90deg);
-          display: block;
-          width: 1em;
-        }
-      }
-
-      .day-summary-content {
-        z-index: 1;
-
-        .amount{
-          background: #2A3140;
-          color:white;
-          transition: padding-right .3s;
-        }
-
-        .content{
-          display: none;
-        }
-
-        &.withdrawal .amount{
-          background: #D93240;
-        }
-
-        &.deposit .amount{
-          background: #1FA698;
-        }
-      }
-
-      .record-list {
+      .monthly-summary {
         position: relative;
-        display: flex;
-        flex-wrap: nowrap;
-        min-width: 2.5em;
-        margin-left: 2.5em;
-        transition: margin-left .3s;
 
-        .record-item {
-          transition: margin-right .3s;
-          dl {
-            transition: border-bottom-color .3s;
-            dd.content {
-              transition: opacity .3s;
-            }
-          }
+        .month-wrap {
+          position: absolute;
+          bottom: 100%;
+          margin: 0 0 3.5em -4px;
+          padding: 0 0 0 0.5em;
+          background: transparent;
+          width: 15em;
+          border-left: solid 5px #fff;
 
-          &.bank-account {
-            &.deposit{
-              .amount {
-                background: #3bf8b5;
-                color: #fff;
-              }
-
-              .content{
-                border-bottom: solid 1px #3bf8b5;
-              }
-            }
-
-            &.withdrawal{
-              .amount {
-                background: #EE9710;
-                color: #fff;
-              }
-
-              .content{
-                border-bottom: solid 1px #EE9710;
-              }
-            }
-          }
-
-          &.credit-card{
-            .amount {
-              background: #D6680E;
-              color: #fff;
-            }
-
-            .content{
-              border-bottom: solid 1px #D6680E;
-            }
+          .month {
+            font-size: 3em;
+            font-weight: bold;
+            color: white;
+            display: block;
           }
         }
       }
+    }
 
-      &.collapsed {
+    .daily-summary-list {
+      display: flex;
+      flex-wrap: nowrap;
+      height: 16em;
+      width: fit-content;
+
+      .daily-summary {
+        position: relative;
+
+        .date-wrap {
+          position: absolute;
+          height: 3.5em;
+          bottom: 100%;
+          width: 100%;
+          color: white;
+          border-left: solid 1px white;
+          background: rgba(255, 255, 255, 0.07);
+
+          .date {
+            transform: rotate(90deg);
+            display: block;
+            width: 1em;
+          }
+        }
+
+        &.sat .date {
+          color: #8effcb;
+        }
+
+        &.sun .date {
+            color: #b90028;
+        }
+
+        .daily-summary-content {
+          z-index: 1;
+
+          .amount {
+            background: #2A3140;
+            color: white;
+            transition: padding-right .3s;
+            padding-right: 2em;
+          }
+
+          .content {
+            display: none;
+          }
+
+          &.withdrawal .amount {
+            background: #D93240;
+          }
+
+          &.deposit .amount {
+            background: #1FA698;
+          }
+        }
+
         .record-list {
-          margin-left: 0;
-          opacity: 0;
-          transition: opacity .3s;
+          position: relative;
+          display: flex;
+          flex-wrap: nowrap;
+          min-width: 2.5em;
+          margin-left: 2.5em;
+          transition: margin-left .3s, opacity .3s;
+
           .record-item {
-            margin-right: 0;
+            transition: margin-right .3s;
             dl {
-              dd.content {
-                opacity: 0;
+              transition: border-bottom-color .3s;
+            }
+
+            &.bank-account {
+              &.deposit {
+                .amount {
+                  background: #3bf8b5;
+                  color: #fff;
+                }
+
+                .content {
+                  border-bottom: solid 1px #3bf8b5;
+                }
+              }
+
+              &.withdrawal {
+                .amount {
+                  background: #EE9710;
+                  color: #fff;
+                }
+
+                .content {
+                  border-bottom: solid 1px #EE9710;
+                }
+              }
+            }
+
+            &.credit-card {
+              .amount {
+                background: #D6680E;
+                color: #fff;
+              }
+
+              .content {
+                border-bottom: solid 1px #D6680E;
               }
             }
           }
         }
 
-        //todo : temporary style for test
-        &:hover {
-          .day-summary-content{
-            .amount{
-              padding-right: 8em;
+        &.collapsed {
+          .record-list {
+            margin-left: 0;
+            opacity: 0;
+            .record-item {
+              margin-right: 0;
             }
           }
 
-          .record-list {
-            margin-left: 2.5em;
-            opacity: 1;
-            .record-item {
-              margin-right: 2.5em;
-              dl {
-                dd.content {
-                  opacity: 1;
+          //todo : temporary style for test
+          &:hover {
+            .daily-summary-content {
+              .amount {
+                padding-right: 12em;
+              }
+            }
+
+            .record-list {
+              margin-left: 2.5em;
+              opacity: 1;
+              .record-item {
+                margin-right: 2.5em;
+                dl {
+                  dd.content {
+                    opacity: 1;
+                  }
                 }
               }
             }
@@ -175,53 +197,55 @@ h1#app-title {
       }
     }
   }
-}
 
-.record {
-  width: 0;
-  height: 0;
-  margin-right: 2.5em;
-  transform: rotate(38deg);
+  .record {
+    width: 0;
+    height: 0;
+    margin-right: 2.5em;
+    transform: rotate(38deg);
 
-  dl {
-    line-height: 1.6em;
-    height: 1.6em;
-    display: flex;
-    width: fit-content;
-    box-sizing: border-box;
+    dl {
+      line-height: 1.6em;
+      height: 1.6em;
+      display: flex;
+      width: fit-content;
+      box-sizing: border-box;
+      position: relative;
+      top: -1.6em;
 
-    dt {
-      display: none;
-    }
-
-    dd {
-      vertical-align: middle;
-
-      &.amount {
-        width: 9em;
-        padding-left: 1em;
-        padding-right: .2em;
-        position: relative;
-        font-weight: bold;
-        box-shadow: 0 0 12px -3px black;
+      dt {
+        display: none;
       }
 
-      &.content {
-        position: relative;
-        white-space: nowrap;
-        background: white;
-        padding: 0 .5em;
-        overflow: hidden;
+      dd {
+        vertical-align: middle;
 
-        &:before {
-          content: '';
-          position: absolute;
-          width: 0;
-          height: 0;
-          bottom: 0;
-          left: -2em;
-          border-bottom: solid 1.6em white;
-          border-left: solid 2.05em transparent;
+        &.amount {
+          width: 7em;
+          padding-left: 1em;
+          padding-right: .2em;
+          position: relative;
+          font-weight: bold;
+          box-shadow: 0 0 12px -3px black;
+        }
+
+        &.content {
+          position: relative;
+          white-space: nowrap;
+          background: white;
+          padding: 0 .5em;
+          overflow: hidden;
+
+          &:before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            bottom: 0;
+            left: -2em;
+            border-bottom: solid 1.6em white;
+            border-left: solid 2.05em transparent;
+          }
         }
       }
     }
