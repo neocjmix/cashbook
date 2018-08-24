@@ -40,18 +40,25 @@
         .month-wrap {
           position: absolute;
           bottom: 100%;
-          margin: 0 0 3.5em -4px;
+          margin: 0 0 2em -4px;
           padding: 0 0 0 0.5em;
           background: transparent;
           width: 15em;
           border-left: solid 5px #fff;
+          font-weight: bold;
+          color: white;
 
           .month {
             font-size: 3em;
-            font-weight: bold;
-            color: white;
-            display: block;
           }
+        }
+
+        &.withdrawal .amount {
+          color: #D93240;
+        }
+
+        &.deposit .amount {
+          color: #1FA698;
         }
       }
     }
@@ -67,7 +74,7 @@
 
         .date-wrap {
           position: absolute;
-          height: 3.5em;
+          height: 2.5em;
           bottom: 100%;
           width: 100%;
           color: white;
@@ -166,9 +173,16 @@
         &.collapsed {
           .record-list {
             margin-left: 0;
-            opacity: 0;
             .record-item {
               margin-right: 0;
+              dl {
+                dd.content {
+                  opacity: 0;
+                }
+                dd.amount{
+                  box-shadow: none;
+                }
+              }
             }
           }
 
@@ -188,6 +202,9 @@
                 dl {
                   dd.content {
                     opacity: 1;
+                  }
+                  dd.amount{
+                    box-shadow: 0 0 12px -3px black;;
                   }
                 }
               }
@@ -227,6 +244,7 @@
           position: relative;
           font-weight: bold;
           box-shadow: 0 0 12px -3px black;
+          transition: box-shadow .3s;
         }
 
         &.content {
@@ -235,6 +253,7 @@
           background: white;
           padding: 0 .5em;
           overflow: hidden;
+          transition: opacity .3s;
 
           &:before {
             content: '';

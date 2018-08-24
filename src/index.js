@@ -33,9 +33,8 @@ function findByMomentRange(arr, mapper, range) {
                 month,
                 moment.range(moment(month).startOf('month'), moment(month).endOf('month')).by('days')
             ])
-            .map(([month, monthDays])=> ({
-                date: month,
-                daily: Array.from(monthDays)
+            .map(([month, monthDays])=> {
+                const daily = Array.from(monthDays)
                     .map(day => ([day, findByMomentRange(
                         records,
                         record => record.dateTime,
@@ -48,10 +47,15 @@ function findByMomentRange(arr, mapper, range) {
                         amount: records
                             .map(record => record.amount)
                             .map(toNumber)
-                            .reduce(sum, 0),
+                            .reduce(sum, 0)
+                    }));
 
-                    }))
-            }))
+                return {
+                    date: month,
+                    amount : daily.reduce((a, b) => a + b.amount, 0),
+                    daily: daily
+                }
+            })
     });
 
     bind(document.getElementById("records-wrapper"), RecordList, store);

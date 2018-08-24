@@ -1,9 +1,5 @@
 import './RecordList.scss'
-import currencyFormatter from 'currency-formatter'
-
-const getAmountClass = amount => amount === 0 ? "" : amount < 0 ? 'withdrawal' : 'deposit';
-const formatCurrency = amount => currencyFormatter.format(Math.abs(amount), {code: 'KRW'});
-const isWeekend = date => date.day() === 0 || date.day() === 6;
+import {getAmountClass, formatCurrency} from "./TemplateHelper";
 
 export default data => `${ data.length ? `
     <ul class="daily-summary-list">
