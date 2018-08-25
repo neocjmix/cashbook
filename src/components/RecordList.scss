@@ -1,5 +1,6 @@
 body{
   background: #222;
+  font-size: .8em;
 }
 
 #app-title {
@@ -43,10 +44,10 @@ body{
           position: absolute;
           bottom: 100%;
           margin: 0 0 2em -4px;
-          padding: 0 0 0 0.5em;
+          padding: 0 0 .3em 0.7em;
           background: transparent;
           width: 15em;
-          border-left: solid 5px #fff;
+          border-left: solid 5px #ccc;
           font-weight: bold;
           color: white;
 
@@ -83,11 +84,13 @@ body{
           border-left: solid 1px rgba(0,0,0,0.1);
 
           .date {
-            position: absolute;
-            bottom: 1.5em;
-            transform: rotate(90deg);
             display: block;
-            width: 1em;
+            position: absolute;
+            bottom : 0;
+            left: -1px;
+            padding-left: .2em;
+            padding-bottom: 1.5em;
+            border-left: solid 1px #ccc;
           }
         }
 

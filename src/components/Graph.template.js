@@ -2,12 +2,12 @@ import './RecordList.scss'
 import monthlyRecords from './MonthlyRecords.template'
 
 
-const toLineto = coords => coords.map(({x, y}) => `L ${x} ${y}`).join(" ");
+const toLine = coords => coords.map(({x, y}) => `L ${x} ${y}`).join(" ");
 
 export default data => {
     let offsetX = -1525405088 + (64*24*60*60) + (12*60*60) + (38*60) + 8;
     let offsetY = 300;
-    const scaleX = 35;
+    const scaleX = 32;
     const scaleY = 1;
     const scaleXMultiplier = 1/(60*60*24);
     const scaleYMultiplier = 0.0001;
@@ -36,10 +36,9 @@ export default data => {
     ]);
 
     return `
-        <svg version="1.1" baseProfile="full" width="100%" height="700" xmlns="http://www.w3.org/2000/svg">
-            <path d="M 0 300 ${toLineto(pathCoords)}" stroke-width="0" fill="rgba(100,255,200,0.1)" />
-            
-            ${records.map(record => ({...toSvgCoord(record), ...{date : new Date(record.dateTime*1000), content : record.content}})).map(({x, y, date, content}) => 
+        <svg version="1.1" width="100%" height="700" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0 300 ${toLine(pathCoords)}" stroke-width="0" fill="rgba(100,255,200,0.1)" />
+            ${records.map(toSvgCoord).map(({x, y}) => 
                 `<circle cx="${x}" cy="${y}" r="1" fill="rgba(100,255,200,0.3)" />`).join("\n")}
        </svg>`;
 };
