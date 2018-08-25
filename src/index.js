@@ -1,62 +1,24 @@
 import './base.scss'
-import {getKbCardData, getShinhanBankData, getShinhanCardData} from "./data";
+import {getKbCardData, getShinhanBankData, getShinhanCardData} from "./repository";
 import RecordList from "./components/RecordList.template";
 import {bind, Store} from "./Framework";
+import {monthlyAggrigation} from "./reducers";
+import {recentMonths} from "./functions"
 import Moment from "moment";
-import {extendMoment} from 'moment-range';
-import {sum, toNumber} from './Functions';
-
-const moment = extendMoment(Moment);
-
-function findByMomentRange(arr, mapper, range) {
-    //todo : improve performace (with search algorithm?)
-    return arr.filter(value => range.contains(mapper(value)));
-}
 
 (async () => {
-    const start = moment().subtract(5, 'months');
-    const end = moment();
     const records = []
         .concat(await getShinhanBankData())
         .concat(await getShinhanCardData())
         .concat(await getKbCardData())
         .map(record => ({
             ...record, ...{
-                dateTime: moment(record.dateTime)
+                dateTime: Moment(record.dateTime)
             }
         }))
         .sort((record1, record2) => record1.dateTime.isBefore(record2.dateTime) ? -1 : 1);
 
-    const store = new Store({
-        monthly : Array.from(moment.range(start, end).by('months'))
-            .map(month => [
-                month,
-                moment.range(moment(month).startOf('month'), moment(month).endOf('month')).by('days')
-            ])
-            .map(([month, monthDays])=> {
-                const daily = Array.from(monthDays)
-                    .map(day => ([day, findByMomentRange(
-                        records,
-                        record => record.dateTime,
-                        moment.rangeFromInterval('day', -1, day)
-                    )]))
-                    .map(([day, records]) => ({
-                        date: day,
-                        content: "합계",
-                        records: records,
-                        amount: records
-                            .map(record => record.amount)
-                            .map(toNumber)
-                            .reduce(sum, 0)
-                    }));
-
-                return {
-                    date: month,
-                    amount : daily.reduce((a, b) => a + b.amount, 0),
-                    daily: daily
-                }
-            })
-    });
-
-    bind(document.getElementById("records-wrapper"), RecordList, store);
+    bind(document.getElementById("records-wrapper"), RecordList, new Store({
+        monthly: recentMonths(5).map(month => monthlyAggrigation(month, records))
+    }));
 })();
