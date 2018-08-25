@@ -8,6 +8,7 @@ module.exports = {
     resolve: {
         alias: {
             data: path.resolve(__dirname, 'src/data/'),
+            functions: path.resolve(__dirname, 'src/functions/index.js'),
         }
     },
     output: {

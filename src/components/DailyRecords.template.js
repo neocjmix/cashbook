@@ -1,5 +1,4 @@
-import './RecordList.scss'
-import {getAmountClass, formatCurrency} from "./TemplateHelper";
+import {getAmountClass, formatCurrency} from "functions";
 
 export default data => `${ data.length ? `
     <ul class="daily-summary-list">

@@ -1,4 +1,4 @@
-import {sum, monthDays, dayRange} from '../functions/index';
+import {sum, monthDays, dayRange} from 'functions';
 
 function findByMomentRange(arr, mapper, range) {
     return arr.filter(value => range.contains(mapper(value))); //todo : improve performace (with search algorithm?)

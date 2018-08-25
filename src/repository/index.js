@@ -1,7 +1,7 @@
 import shinhanBankData from 'data/shinhanBank.json'
 import shinhanCardData from 'data/shinhanCard.csv'
 import kbCardData from 'data/kbCard.csv'
-import {toNumber} from '../functions'
+import {toNumber} from 'functions'
 
 function getShinhanBankData() {
     return new Promise(resolve => {

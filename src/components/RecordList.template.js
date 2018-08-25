@@ -1,4 +1,4 @@
 import './RecordList.scss'
-import monthlyRecords from './monthlyRecords.template'
+import MonthlyRecords from './MonthlyRecords.template'
 
-export default data => `${monthlyRecords(data.monthly)}`;
+export default data => `${MonthlyRecords(data.monthly)}`;

@@ -1,3 +1,4 @@
+import currencyFormatter from 'currency-formatter'
 import Moment from "moment";
 import {extendMoment} from 'moment-range';
 const moment = extendMoment(Moment);
@@ -7,5 +8,7 @@ const toNumber = value => typeof value === "number" ? value : (value + "").repla
 const monthDays = (month) => Array.from(moment.range(moment(month).startOf('month'), moment(month).endOf('month')).by('days'));
 const dayRange = (day) => moment.rangeFromInterval('day', -1, day);
 const recentMonths = length => Array.from(moment.range(moment().subtract(length, 'months'), moment()).by('months'));
+const getAmountClass = amount => amount === 0 ? "" : amount < 0 ? 'withdrawal' : 'deposit';
+const formatCurrency = (amount, absolute = true) => currencyFormatter.format(absolute ? Math.abs(amount) : amount, {code: 'KRW'});
 
-export {sum, toNumber, recentMonths, monthDays, dayRange}
+export {getAmountClass, formatCurrency, sum, toNumber, recentMonths, monthDays, dayRange}

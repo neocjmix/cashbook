@@ -1,6 +1,5 @@
-import './RecordList.scss'
-import dailyRecords from './dailyRecords.template'
-import {formatCurrency, getAmountClass} from "./TemplateHelper";
+import DailyRecords from './DailyRecords.template'
+import {formatCurrency, getAmountClass} from "functions";
 
 export default data => `${ data.length ? `
     <ul class="monthly-summary-list">
@@ -11,7 +10,7 @@ export default data => `${ data.length ? `
                     <span class="amount">${formatCurrency(month.amount, false)}</span>
                 </div>
                 ${ month.daily.length ? `
-                    ${dailyRecords(month.daily)}
+                    ${DailyRecords(month.daily)}
                 ` : ""}
             </li>
         `).join("\n")}$
