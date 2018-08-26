@@ -9,7 +9,7 @@ function dailyAggrigation(day, records) {
     return ({
         date: day,
         content: "일합계",
-        records: dailyRecords,
+        records: dailyRecords.map(record => record.id),
         amount: dailyRecords.map(record => record.amount).reduce(sum, 0)
     });
 }

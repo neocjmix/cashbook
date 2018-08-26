@@ -11,14 +11,16 @@ import Moment from "moment";
         .concat(await getShinhanBankData())
         .concat(await getShinhanCardData())
         .concat(await getKbCardData())
-        .map(record => ({
+        .map((record, index) => ({
             ...record, ...{
+                id: index,
                 dateTime: Moment(record.dateTime)
             }
         }))
         .sort((record1, record2) => record1.dateTime.isBefore(record2.dateTime) ? -1 : 1);
 
     bind(document.getElementById("app"), App, new Store({
+        records : records,
         monthly: recentMonths(5).map(month => monthlyAggrigation(month, records))
     }));
 })();

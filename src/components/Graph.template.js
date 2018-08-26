@@ -17,11 +17,7 @@ export default data => {
         y: offsetY -amount * scaleY * scaleYMultiplier
     });
 
-    const records = data.monthly
-        .map(m => m.daily)
-        .reduce((a,b) => a.concat(b))
-        .map(m => m.records)
-        .reduce((a,b) => a.concat(b))
+    const records = data.records
         .filter(record => record.type === "bank")
         .map(record => ({dateTime : record.dateTime.unix(), amount : record.amount, content : record.content}))
         .reduce((arr, {dateTime, amount, content}) => arr.concat([{dateTime, content, amount : arr[arr.length - 1].amount + amount}]), [{amount : 0}])
@@ -37,8 +33,8 @@ export default data => {
 
     return `
         <svg version="1.1" width="100%" height="700" xmlns="http://www.w3.org/2000/svg">
-            <path d="M 0 300 ${toLine(pathCoords)}" stroke-width="0" fill="rgba(100,255,200,0.1)" />
+            <path d="M 0 300 ${toLine(pathCoords)}" stroke-width="0" fill="rgba(150,255,200,0.4)" />
             ${records.map(toSvgCoord).map(({x, y}) => 
-                `<circle cx="${x}" cy="${y}" r="1" fill="rgba(100,255,200,0.3)" />`).join("\n")}
+                `<circle cx="${x}" cy="${y}" r="1" fill="rgba(100,255,200,0.7)" />`).join("\n")}
        </svg>`;
 };
