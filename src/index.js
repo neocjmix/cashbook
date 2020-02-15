@@ -1,6 +1,6 @@
 import './base.scss'
 import {getKbCardData, getShinhanBankData, getShinhanCardData} from './repository'
-import App from './components/App.template'
+import App from './components/App'
 import {monthlyAggrigation} from './reducers'
 import {recentMonths} from 'functions'
 import Moment from 'moment'

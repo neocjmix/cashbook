@@ -1,5 +1,5 @@
 import './RecordList.scss'
-import monthlyRecords from './MonthlyRecords.template'
+import monthlyRecords from './MonthlyRecords'
 
 
 const toLine = coords => coords.map(({x, y}) => `L ${x} ${y}`).join(" ");

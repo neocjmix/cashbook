@@ -1,4 +1,4 @@
-import DailyRecords from './DailyRecords.template'
+import DailyRecords from './DailyRecords'
 import {formatCurrency, getAmountClass} from "functions";
 
 export default (monthly, records) => `${ monthly.length ? `
