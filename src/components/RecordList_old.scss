@@ -1,0 +1,277 @@
+body{
+  background: #222;
+  font-size: .8em;
+}
+
+#app-title {
+  position: fixed;
+  font-size: 2.3em;
+  color: #f6faff;
+  font-family: 'Poiret One', cursive;
+  font-weight: normal;
+  margin: .2em 0 0 .4em;
+  .symbol{
+    font-size: 1.4em;
+  }
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  overflow: hidden;
+
+  #graph-wrapper {
+    height: 700px;
+    background: #262626;
+  }
+
+  #records-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+
+    .monthly-summary-list {
+      display: flex;
+      flex-wrap: nowrap;
+      height: 16em;
+      width: fit-content;
+
+      .monthly-summary {
+        position: relative;
+
+        .month-wrap {
+          position: absolute;
+          bottom: 100%;
+          margin: 0 0 2em -4px;
+          padding: 0 0 .8em 0.7em;
+          background: transparent;
+          width: 15em;
+          border-left: solid 5px #ccc;
+          font-weight: bold;
+          color: white;
+
+          .month {
+            font-size: 3em;
+          }
+        }
+
+        &.withdrawal .amount {
+          color: #D93240;
+        }
+
+        &.deposit .amount {
+          color: #1FA698;
+        }
+      }
+    }
+
+    .daily-summary-list {
+      display: flex;
+      flex-wrap: nowrap;
+      height: 16em;
+      width: fit-content;
+
+      .daily-summary {
+        position: relative;
+
+        .date-wrap {
+          position: absolute;
+          height: 700px;
+          bottom: 100%;
+          width: 100%;
+          color: white;
+          border-left: solid 1px rgba(0,0,0,0.1);
+
+          .date {
+            display: block;
+            position: absolute;
+            bottom : 0;
+            left: -1px;
+            padding-left: .2em;
+            padding-bottom: 1.5em;
+            border-left: solid 1px #ccc;
+          }
+        }
+
+        &.sat {
+          .date-wrap{
+            background: rgba(142, 255, 203, 0.02);
+          }
+          .date {
+            color: #8effcb;
+          }
+        }
+
+        &.sun {
+          .date-wrap{
+            background: rgba(185, 0, 40, 0.02);
+          }
+          .date {
+            color: #b90028;
+          }
+        }
+
+        .daily-summary-content {
+          z-index: 1;
+
+          .amount {
+            background: #2A3140;
+            color: white;
+            transition: padding-right .3s;
+            padding-right: 2em;
+          }
+
+          .content {
+            display: none;
+          }
+
+          &.withdrawal .amount {
+            background: #D93240;
+          }
+
+          &.deposit .amount {
+            background: #1FA698;
+          }
+        }
+
+        .record-list {
+          position: relative;
+          display: flex;
+          flex-wrap: nowrap;
+          min-width: 2.5em;
+          margin-left: 2.5em;
+          transition: margin-left .3s, opacity .3s;
+
+          .record-item {
+            transition: margin-right .3s;
+            dl {
+              transition: border-bottom-color .3s;
+            }
+
+            &.bank-account {
+              &.deposit {
+                .amount {
+                  background: #3bf8b5;
+                  color: #fff;
+                }
+
+                .content {
+                  border-bottom: solid 1px #3bf8b5;
+                }
+              }
+
+              &.withdrawal {
+                .amount {
+                  background: #EE9710;
+                  color: #fff;
+                }
+
+                .content {
+                  border-bottom: solid 1px #EE9710;
+                }
+              }
+            }
+
+            &.credit-card {
+              .amount {
+                background: #D6680E;
+                color: #fff;
+              }
+
+              .content {
+                border-bottom: solid 1px #D6680E;
+              }
+            }
+          }
+        }
+
+        &.collapsed {
+          .record-list {
+            margin-left: 0;
+            .record-item {
+              margin-right: 0;
+              dl {
+                dd.content {
+                  opacity: 0;
+                }
+                dd.amount{
+                  box-shadow: none;
+                }
+              }
+            }
+          }
+
+          //todo : temporary style for test
+          &:hover {
+            .daily-summary-content {
+              .amount {
+                padding-right: 12em;
+              }
+            }
+
+            .record-list {
+              margin-left: 2.5em;
+              opacity: 1;
+              .record-item {
+                margin-right: 2.5em;
+                dl {
+                  dd.content {
+                    opacity: 1;
+                  }
+                  dd.amount{
+                    box-shadow: 0 0 12px -3px black;;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .record {
+    width: 0;
+    height: 0;
+    margin-right: 2.5em;
+    transform: rotate(38deg);
+
+    dl {
+      line-height: 1.6em;
+      height: 1.6em;
+      display: flex;
+      width: fit-content;
+      box-sizing: border-box;
+      position: relative;
+      top: -1.6em;
+
+      dt {
+        display: none;
+      }
+
+      dd {
+        vertical-align: middle;
+
+        &.amount {
+          width: 7em;
+          padding-left: 1em;
+          padding-right: .2em;
+          position: relative;
+          font-weight: bold;
+          box-shadow: 0 0 12px -3px black;
+          transition: box-shadow .3s;
+        }
+
+        &.content {
+          position: relative;
+          white-space: nowrap;
+          color: white;
+          padding: 0 .5em;
+          overflow: hidden;
+          transition: opacity .3s;
+        }
+      }
+    }
+  }
+}

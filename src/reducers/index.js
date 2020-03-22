@@ -1,27 +1,42 @@
-import {sum, monthDays, dayRange} from 'functions';
+import { dayRange, monthDays, sum } from 'functions'
+import startOfMonth from 'date-fns/startOfMonth'
+import startOfDay from 'date-fns/startOfDay'
+import isBefore from 'date-fns/isBefore'
 
-function findByMomentRange(arr, mapper, range) {
-    return arr.filter(value => range.contains(mapper(value))); //todo : improve performace (with search algorithm?)
-}
-
-function dailyAggrigation(day, records) {
-    const dailyRecords = findByMomentRange(records, record => record.dateTime, dayRange(day));
-    return ({
-        date: day,
-        content: "일합계",
-        records: dailyRecords.map(record => record.id),
-        amount: dailyRecords.map(record => record.amount).reduce(sum, 0)
-    });
-}
-
-function monthlyAggrigation(month, records) {
-    const daily = monthDays(month).map(day => dailyAggrigation(day, records));
-    return {
-        date: month,
-        content: "월합계",
-        daily: daily,
-        amount : daily.map(record => record.amount).reduce(sum, 0)
+const groupByMonths = records => records.reduce((monthGroups, record) => {
+    const recordMonth = startOfMonth(record.dateTime)
+    const {length: groupLength, [groupLength - 1]:lastGroup} = monthGroups
+    if (!lastGroup || isBefore(lastGroup.date, recordMonth)) {
+        monthGroups.push({
+            date: recordMonth,
+            content: '월합계',
+            amount: record.amount,
+            records: [record],
+        })
+    }else{
+        lastGroup.amount += record.amount
+        lastGroup.records.push(record)
     }
-}
+    return monthGroups
+}, [])
 
-export {dailyAggrigation, monthlyAggrigation}
+const groupByDays = records => records.reduce((dayGroups, record) => {
+    const recordDay = startOfDay(record.dateTime)
+    const {length: groupLength, [groupLength - 1]:lastGroup} = dayGroups
+    if (!lastGroup || isBefore(lastGroup.date, recordDay)) {
+        dayGroups.push({
+            date: recordDay,
+            content: '일합계',
+            amount: record.amount,
+            records: [record],
+        })
+    }else{
+        lastGroup.amount += record.amount
+        lastGroup.records.push(record)
+    }
+    return dayGroups
+}, [])
+
+const recentMonths = length => Array.from(moment.range(moment().subtract(length, 'months'), moment()).by('months'));
+
+export { groupByMonths, groupByDays }

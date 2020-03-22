@@ -1,40 +1,56 @@
-import {getAmountClass, formatCurrency} from "functions";
+import { $dd, $div, $dl, $dt, $li, $span, $ul } from 'dognut/htmlComponent'
+// import { DailyRecord } from './DailyRecord'
+import format from "date-fns/format"
+import { formatCurrency, getAmountClass } from '../functions'
 
-export default (daily, records) => `${ daily.length ? `
-    <ul class="daily-summary-list">
-        ${daily.map(day => `
-            <li class="daily-summary collapsed ${day.date.format('ddd').toLowerCase()}">
-                <div class="date-wrap">
-                    <span class="date">${day.date && day.date.format('D')}</span>
-                </div>
-                ${ day.records.length ? `
-                    <ul class="record-list">
-                        ${day.records
-                            .map(id => records[id])
-                            .map(record => record.isCreditCard ? `
-                                <li class="record record-item credit-card ${getAmountClass(record.amount)}">
-                                    <dl>
-                                        <dt>금액</dt><dd class="amount">${formatCurrency(record.amount)}</dd>
-                                        <dt>내용</dt><dd class="content">${record.content}</dd>
-                                    </dl>           
-                                </li>
-                            ` : `
-                                <li class="record record-item bank-account ${getAmountClass(record.amount)}">
-                                    <dl>
-                                        <dt>금액</dt><dd class="amount">${formatCurrency(record.amount)}</dd>
-                                        <dt>내용</dt><dd class="content">${record.content}</dd>
-                                    </dl>           
-                                </li>
-                            `).join('\n')}
-                    </ul>
-                ` : ""}
-                <div class="record daily-summary-content ${getAmountClass(day.amount)}">
-                    <dl>
-                        <dt>금액</dt><dd class="amount">${formatCurrency(day.amount)}</dd>
-                        <dt>내용</dt><dd class="content">${day.content}</dd>
-                    </dl>           
-                </div>
-            </li>        
-        `).join('\n')}
-    </ul>
-` : ""}`;
+const store = new Proxy({
+  collapsed: true
+}, {
+
+})
+
+export default daily => daily.length > 0 &&
+  $ul({ class: 'daily-summary-list' })(
+    daily.map(day => $li({
+        class: [
+          'daily-summary',
+          'record-list',
+          store.collapsed ? 'collapsed' : '',
+          day.date && format(day.date, 'dd').toLowerCase()
+        ]
+      })(
+      $div({ class: 'date-wrap' })(
+        $span({ class: 'date' })(day.date && format(day.date, 'd'))
+      ),
+      $div({ class: `record daily-summary-content ${getAmountClass(day.amount)}` })(
+        $dl(
+          $dt('금액'),
+          $dd({ class: 'amount' })(formatCurrency(day.amount)),
+          $dt('내용'),
+          $dd({ class: 'content' })(day.content)
+        )
+      ),
+      $ul({ class: 'record-list' })(
+        day.records.map((record, index) =>
+          $li({
+            class: [
+              'record',
+              'record-item',
+              getAmountClass(record.amount),
+              record.isCreditCard ? 'credit-card' : 'bank-account'
+            ].join(' '),
+            style: `z-index:${day.records.length - index}`
+          })(
+            $dl(
+              $dt('금액'),
+              $dd({ class: 'amount' })(formatCurrency(record.amount)),
+              $dt('내용'),
+              $dd({ class: 'content' })(record.content)
+            )
+          )
+        )
+      ),
+      )
+
+    )
+  )

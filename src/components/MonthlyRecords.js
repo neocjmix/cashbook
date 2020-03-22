@@ -1,18 +1,21 @@
 import DailyRecords from './DailyRecords'
-import {formatCurrency, getAmountClass} from "functions";
+import format from 'date-fns/format'
+import {formatCurrency, getAmountClass} from 'functions'
+import { $div, $li, $span, $ul } from 'dognut/htmlComponent'
 
-export default (monthly, records) => `${ monthly.length ? `
-    <ul class="monthly-summary-list">
-        ${monthly.map(month => `
-            <li class="monthly-summary ${getAmountClass(month.amount)}">
-                <div class="month-wrap">
-                    <span class="month">${month.date && month.date.format('M')}</span>
-                    <span class="amount">${formatCurrency(month.amount, false)}</span>
-                </div>
-                ${ month.daily.length ? `
-                    ${DailyRecords(month.daily, records)}
-                ` : ""}
-            </li>
-        `).join("\n")}$
-    </ul>
-` : ""}`;
+export default monthly => {
+    return monthly.length ?
+        $ul`.monthly-summary-list`(
+            monthly.map(month => [
+                $li`.monthly-summary.${getAmountClass(month.amount)}`(
+                    $div`.month-wrap`(
+                        $span`.month`(month.date && format(month.date, 'M')),
+                        $span`.amount`(formatCurrency(month.amount, false))
+                    ),
+                    month.daily.length
+                        ? DailyRecords(month.daily)
+                        : ''
+                ),
+            ])
+        ) : ''
+}
