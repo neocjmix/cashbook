@@ -1,4 +1,4 @@
-import { $ul } from 'lib/dognut/htmlComponent'
+import { $ul } from 'lib/dognut/src/htmlComponent'
 import { DailyRecord } from './DailyRecord'
 
 export default daily => daily.length > 0 &&

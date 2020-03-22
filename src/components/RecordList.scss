@@ -154,7 +154,7 @@ body {
             .record-item {
               opacity: 1;
               margin-left: 0;
-              transition: margin-left .2s, opacity .2s;
+              transition: margin-left .3s, opacity 0s;
               dl {
                 background: rgb(255, 127, 80);
               }
@@ -164,6 +164,7 @@ body {
           &.collapsed{
             .record-item {
               margin-left: -$record-distance;
+              transition: margin-left .3s, opacity 0s .3s;
               opacity: 0;
             }
           }
