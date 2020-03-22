@@ -1,7 +1,7 @@
 import DailyRecords from './DailyRecords'
 import format from 'date-fns/format'
 import {formatCurrency, getAmountClass} from 'functions'
-import { $div, $li, $span, $ul } from 'dognut/htmlComponent'
+import { $div, $li, $span, $ul } from 'lib/dognut/htmlComponent'
 
 export default monthly => {
     return monthly.length ?

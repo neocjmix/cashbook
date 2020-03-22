@@ -1,0 +1,3 @@
+[submodule "src/lib/dognut"]
+	path = src/lib/dognut
+	url = https://github.com/neocjmix/dognut.git
