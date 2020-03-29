@@ -2,7 +2,7 @@ import './base.scss'
 import { getKbCardData, getShinhanBankData, getShinhanCardData } from './repository'
 import { groupByDays, groupByMonths } from './reducers'
 import isBefore from 'date-fns/isBefore'
-import { $div } from 'dognut/src/htmlComponent'
+import { DIV } from 'dognut/src/htmlComponent'
 import Graph from './components/Graph'
 import MonthlyRecords from './components/MonthlyRecords'
 
@@ -27,11 +27,11 @@ import MonthlyRecords from './components/MonthlyRecords'
     }))
   }
 
-  $div`#app`(
-    $div`#graph-wrapper`(
+  DIV`#app`(
+    DIV`#graph-wrapper`(
       Graph(store)
     ),
-    $div`#records-wrapper`(
+    DIV`#records-wrapper`(
       MonthlyRecords(store.monthly)
     )
   ).render(document.getElementById('app'))

@@ -1,14 +1,14 @@
 import './RecordList.scss'
 import Graph from './Graph'
 import MonthlyRecords from './MonthlyRecords'
-import { $div } from 'lib/dognut/src/htmlComponent'
+import { DIV } from 'lib/dognut/src/htmlComponent'
 
 export default (store, container) => {
-  $div`#app`(
-    $div`#graph-wrapper`(
+  DIV`#app`(
+    DIV`#graph-wrapper`(
       Graph(store)
     ),
-    $div`#records-wrapper`(
+    DIV`#records-wrapper`(
       MonthlyRecords(store.monthly)
     )
   ).render(container)

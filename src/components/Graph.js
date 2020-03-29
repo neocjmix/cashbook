@@ -1,5 +1,5 @@
 import './RecordList.scss'
-import { $circle, $path, $svg } from 'lib/dognut/src/svgComponent'
+import { CIRCLE, PATH, SVG } from 'lib/dognut/src/svgComponent'
 
 const toLine = coords => coords.map(({x, y}) => `L ${x} ${y}`).join(' ')
 
@@ -37,10 +37,10 @@ export default data => {
   ])
 
   return (
-    $svg({version: '1.1', width: '100%', height: '700', xmlns: 'http://www.w3.org/2000/svg'})(
-      $path({d: `M 0 300 ${toLine(pathCoords)}`, 'stroke-width': 0, fill: 'rgba(150,255,200,0.4)'})(
+    SVG({version: '1.1', width: '100%', height: '700', xmlns: 'http://www.w3.org/2000/svg'})(
+      PATH({d: `M 0 300 ${toLine(pathCoords)}`, 'stroke-width': 0, fill: 'rgba(150,255,200,0.4)'})(
         records.map(toSvgCoord).map(({x, y}) =>
-          $circle({cx: x, cy: y, r: 1, fill: 'rgba(100,255,200,0.7)'}))
+          CIRCLE({cx: x, cy: y, r: 1, fill: 'rgba(100,255,200,0.7)'}))
       )
     )
   )

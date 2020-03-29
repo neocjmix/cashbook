@@ -1,5 +1,5 @@
 import { updatable } from 'lib/dognut/src'
-import { $dd, $div, $dl, $dt, $li, $span, $ul } from 'lib/dognut/src/htmlComponent'
+import { DD, DIV, DL, DT, LI, SPAN, UL } from 'lib/dognut/src/htmlComponent'
 import format from 'date-fns/format'
 import { formatCurrency, getAmountClass } from '../functions'
 
@@ -19,29 +19,34 @@ export const DailyRecord = updatable(({ data }, update) => {
   })
 
   return () =>
-    $li({
+    LI({
       class: [
         'daily-summary',
         'record-list',
         store.collapsed ? 'collapsed' : '',
         data.date && format(data.date, 'dd').toLowerCase()
       ],
-      onClick: store.toggleCollapsed,
+      onClick: store.toggleCollapsed
     })(
-      $div({ class: 'date-wrap' })(
-        $span({ class: 'date' })(data.date && format(data.date, 'd'))
+      DIV({ class: 'date-wrap' })(
+        SPAN({ class: 'date' })(data.date && format(data.date, 'd'))
       ),
-      $div({ class: `record daily-summary-content ${getAmountClass(data.amount)}` })(
-        $dl(
-          $dt('금액'),
-          $dd({ class: 'amount' })(formatCurrency(data.amount)),
-          $dt('내용'),
-          $dd({ class: 'content' })(data.content)
+      DIV({
+        class: [
+          'record',
+          'daily-summary-content',
+          getAmountClass(data.amount)]
+      })(
+        DL(
+          DT('금액'),
+          DD({ class: 'amount' })(formatCurrency(data.amount)),
+          DT('내용'),
+          DD({ class: 'content' })(data.content)
         )
       ),
-      $ul({ class: 'record-list' })(
+      UL({ class: 'record-list' })(
         data.records.map((record, index) =>
-          $li({
+          LI({
             class: [
               'record',
               'record-item',
@@ -52,11 +57,11 @@ export const DailyRecord = updatable(({ data }, update) => {
               zIndex: data.records.length - index
             }
           })(
-            $dl(
-              $dt('금액'),
-              $dd({ class: 'amount' })(formatCurrency(record.amount)),
-              $dt('내용'),
-              $dd({ class: 'content' })(record.content)
+            DL(
+              DT('금액'),
+              DD({ class: 'amount' })(formatCurrency(record.amount)),
+              DT('내용'),
+              DD({ class: 'content' })(record.content)
             )
           )
         )
