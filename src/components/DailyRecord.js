@@ -1,5 +1,5 @@
-import { updatable } from 'lib/dognut/src'
-import { DD, DIV, DL, DT, LI, SPAN, UL } from 'lib/dognut/src/htmlComponent'
+import { updatable } from 'dognut/src'
+import { DD, DIV, DL, DT, LI, SPAN, UL } from 'dognut/src/htmlComponent'
 import format from 'date-fns/format'
 import { formatCurrency, getAmountClass } from '../functions'
 

@@ -1,6 +1,6 @@
 import format from 'date-fns/format'
 import { formatCurrency, getAmountClass } from 'functions'
-import { DIV, LI, SPAN, UL } from 'lib/dognut/src/htmlComponent'
+import { DIV, LI, SPAN, UL } from 'dognut/src/htmlComponent'
 import { DailyRecord } from './DailyRecord'
 
 export default monthly =>

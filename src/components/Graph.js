@@ -1,5 +1,5 @@
 import './RecordList.scss'
-import { CIRCLE, PATH, SVG } from 'lib/dognut/src/svgComponent'
+import { CIRCLE, PATH, SVG } from 'dognut/src/svgComponent'
 
 const toLine = coords => coords.map(({x, y}) => `L ${x} ${y}`).join(' ')
 
